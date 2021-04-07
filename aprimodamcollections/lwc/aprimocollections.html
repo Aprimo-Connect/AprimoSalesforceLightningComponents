@@ -6,10 +6,10 @@
                 <div class="slds-form-element__control">
                     <!--For each record in the "records" variable, create a tile in the Aprimo Recommended Content UI pane-->
                     <template for:each={records}  for:item="record">
-                        <div data-id={record.id} class="slds-visual-picker slds-visual-picker_medium" key={record.id}  onclick={openAprimo}>
+                        <div data-id={record.id} class="slds-visual-picker slds-visual-picker_medium" key={record.id}>
                             <input data-id={record.id} type="checkbox" value="visual-picker-94" name="options" />
                             <label data-id={record.id} for="visual-picker-94">
-                            <span data-id={record.id} class="slds-visual-picker__figure slds-visual-picker__icon slds-align_absolute-center" >
+                            <span data-id={record.id} class="slds-visual-picker__figure slds-visual-picker__icon slds-align_absolute-center"  onclick={openAprimo} style="height:auto" >
                                 <span data-id={record.id} class="slds-is-selected">
                                 <span data-id={record.id} class="slds-icon_container">
                                     <img data-id={record.id} src={record.preview.uri} />
@@ -24,8 +24,10 @@
                             <span data-id={record.id} class="slds-visual-picker__body">
                                 <span data-id={record.id} class="slds-text-title">{record.title}</span>
                             </span>
+                            <lightning-button label="Download" data-id={record.id} title="Looks like a link" onclick={downloadToAttachments} class="slds-m-left_x-small"></lightning-button>
                             </label>
                         </div>
+                        
                     </template>
                 
                 </div>
