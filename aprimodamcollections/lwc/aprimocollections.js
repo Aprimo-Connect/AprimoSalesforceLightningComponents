@@ -2,6 +2,7 @@ import { LightningElement, api, wire } from 'lwc';
 import { getRecord } from 'lightning/uiRecordApi';
 import getCollectionId from '@salesforce/apex/AprimoCollectionsConnector.getCollectionId';
 import getAprimoRecordsFromCollection from '@salesforce/apex/AprimoCollectionsConnector.getAprimoRecordsFromCollection';
+import createAttachment from '@salesforce/apex/AprimoCollectionsConnector.createAttachment';
 
 export default class Aprimocollections extends LightningElement {
 
@@ -38,6 +39,20 @@ export default class Aprimocollections extends LightningElement {
     openAprimo(event)
     {
         window.open("https://" + this.tenant + ".dam.aprimo.com/dam/contentitems/" + event.target.dataset.id);
-    } 
+    }
+    
+    downloadToAttachments(event)
+    {
+        const aprimoId = event.target.dataset.id;
+        createAttachment({recordId: aprimoId, salesforceRecordid: this.recordId})
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.log(error);
+            })
+            // Reload the page
+            window.location.reload(); 
+    }
     
 }
