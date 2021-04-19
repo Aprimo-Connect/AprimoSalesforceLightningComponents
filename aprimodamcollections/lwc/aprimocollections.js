@@ -2,7 +2,18 @@ import { LightningElement, api, wire } from 'lwc';
 import { getRecord } from 'lightning/uiRecordApi';
 import getCollectionId from '@salesforce/apex/AprimoCollectionsConnector.getCollectionId';
 import getAprimoRecordsFromCollection from '@salesforce/apex/AprimoCollectionsConnector.getAprimoRecordsFromCollection';
+import getAprimoRecordDownloadUrl from '@salesforce/apex/AprimoCollectionsConnector.getAprimoRecordDownloadUrl';
 import createAttachment from '@salesforce/apex/AprimoCollectionsConnector.createAttachment';
+import getAprimoOrderStatus from '@salesforce/apex/AprimoCollectionsConnector.getAprimoOrderStatus';
+
+
+class OrderStatusResponse{
+    constructor()
+    {
+        this.status = '';
+        this.url = '';
+    }
+}
 
 export default class Aprimocollections extends LightningElement {
 
@@ -44,15 +55,45 @@ export default class Aprimocollections extends LightningElement {
     downloadToAttachments(event)
     {
         const aprimoId = event.target.dataset.id;
-        createAttachment({recordId: aprimoId, salesforceRecordid: this.recordId})
+        console.log("assetId: " + aprimoId);
+        getAprimoRecordDownloadUrl({aprimoRecordId: aprimoId})
             .then(data => {
-                console.log(data);
-            })
-            .catch(error => {
-                console.log(error);
-            })
-            // Reload the page
-            window.location.reload(); 
+                var timeoutID = setTimeout(getOrderStatus, 1000, data, this.recordId);
+            });
     }
-    
 }
+
+function getOrderStatus(aprimoOrderId, salesforceId)
+{
+    
+    getAprimoOrderStatus({orderId: aprimoOrderId})
+        .then(data => {
+            var responseObj = JSON.parse(data);
+            if(responseObj.status == 'Pending' || responseObj.status == "Executing")
+            {
+                // Wait for a few seconds. 
+                setTimeout(getOrderStatus, 1000, aprimoOrderId, salesforceId );
+            }
+            else if(responseObj.status == "Failed" || responseObj.status == "Failure")
+            {
+                alert("Download Failed. Please contact and admin");
+                return;
+            }
+            else
+            {
+                // Success
+                createAttachment({downloadUrl: responseObj.url, salesforceRecordId: salesforceId})
+                .then(data => {
+                    // Reload the page
+                    window.location.reload(); 
+
+                })
+            }
+            
+        });
+        
+   
+   
+}
+
+
