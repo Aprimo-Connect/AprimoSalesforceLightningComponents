@@ -12,9 +12,10 @@ public with sharing class AprimoCollectionsConnector {
     }
 
     // Auth Variables
-    private static string aprimoTenant = 'productstrategy1';
-    private static string aprimoClientId = 'RN8G5ECT-RN8G';
-    private static string aprimoClientSecret = 'aprimo123';
+    private static string aprimoTenant = 'youraprimoenvironmentname';
+	// See https://developers.aprimo.com/marketing-operations/rest-api/authorization/#module5 for more information on our OAuth2 Client Credentials 
+    private static string aprimoClientId = 'your aprimo client credentials client id';
+    private static string aprimoClientSecret = 'your aprimo client credentials client secret';
 
     // Stage Collection ID Map
     private static Map<String, String> salesforceDataToCollectionIds = new Map<String, String>{
