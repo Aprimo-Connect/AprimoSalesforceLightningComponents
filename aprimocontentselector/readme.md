@@ -17,6 +17,7 @@
 4) In the “AprimoContentSelector.cls” file replace the “aprimoTenant” variable with your specific Aprimo environment name. EX: “myenvironment” 
 5) Go to your Aprimo administration settings and configure a new Aprimo registration  
 6) The secret is non-recoverable. So do not forget it. Make sure the authorization flow is set to Client Credentials 
+![AprimoRegistration](https://user-images.githubusercontent.com/51798256/179263426-0b718517-5ffd-451b-9334-a65bc9511503.png)
 7) In the “AprimoContentSelector.cls” file replace the “aprimoClientId” and “aprimoClientSecret” with the appropriate value from your new Aprimo client registration 
 8) Deploy the following files: 
 
