@@ -46,3 +46,27 @@ The getCollectionId() function in AprimoCollectionsConnector.cls is also relevan
 
 The wired function will call this function to query Salesforce to get the data of the relevant metadata fields. If this need to be changed to support the Account object it may look like the screenshot below. 
 ![image](https://user-images.githubusercontent.com/51798256/179281222-6da3bc55-b40c-4a16-ba74-33442091262a.png)
+
+### How to change Collection IDs
+
+Navigate to the AprimoCollectionsConnector.cls file. This class contains the Map object that associates Salesforce data to Aprimo collection IDs. 
+
+![image](https://user-images.githubusercontent.com/51798256/179282648-5a184b2d-3146-4638-ab4f-ea0d94c653bf.png)
+
+
+Set the values appropriate to your configuration. If the connector is going to base the collection off of an Account’s Industry field, then the Map object would look something more like this: 
+
+![image](https://user-images.githubusercontent.com/51798256/179282702-1011544e-bda8-4544-922b-360692439e07.png)
+
+### How to change selection logic
+The login for determining which collection will be selected for surfacing is decided in the @wire decorated function in aprimocollections.js as well as the getCollectionId() function in AprimoCollectionsConnector.cls 
+
+@wire
+![image](https://user-images.githubusercontent.com/51798256/179282838-a72a561f-8e2e-4aa9-a9c1-effe92e2680e.png)
+
+
+getCollectionId()
+![image](https://user-images.githubusercontent.com/51798256/179282866-0838c991-c156-43b9-8697-38f88b2a9741.png)
+
+
+If your configuration required more advanced selection logic that login will be placed in these 2 functions. 
