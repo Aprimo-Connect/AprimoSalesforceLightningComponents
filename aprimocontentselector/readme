@@ -1,1 +1,44 @@
+# Installation Instruction 
 
+ 
+
+### Prerequisites 
+
+- Download the code from the Aprimo Connect GitHub 
+- Permissions to create new Aprimo client registrations 
+- Permissions to deploy code to the Salesforce instance 
+- Permissions to access the ‘Edit Page’ functionality on Salesforce record pages 
+
+ 
+
+1) Download the LWC and Classes folders from the github repo 
+2) In the “aprimocontentselector.js” file replace the value of the “tenantUrl” variable with your specific Aprimo environment DAM url. EX: https://myenvironment.dam.aprimo.com 
+In the “aprimocontentselector.js” file replace the value of “tenant” variable with your specific Aprimo environment name. EX: “myenvironment” 
+
+In the “AprimoContentSelector.cls” file replace the “aprimoTenant” variable with your specific Aprimo environment name. EX: “myenvironment” 
+
+Go to your Aprimo administration settings and configure a new Aprimo registration  
+
+The secret is non-recoverable. So do not forget it. Make sure the authorization flow is set to Client Credentials 
+
+  
+
+In the “AprimoContentSelector.cls” file replace the “aprimoClientId” and “aprimoClientSecret” with the appropriate value from your new Aprimo client registration 
+
+Deploy the following files: 
+
+aprimocontentselector.html 
+
+aprimocontentselector.js 
+
+aprimocontentselector.js-meta.xml 
+
+AprimoContentSelector.cls 
+
+AprimoCollectionsConnector.cls-meta.xml 
+
+Navigate to an Opportunity object in Salesforce 
+
+Enter the ‘Edit Page’ functionality 
+
+Search “Aprimo” and drag the new component onto the page 
