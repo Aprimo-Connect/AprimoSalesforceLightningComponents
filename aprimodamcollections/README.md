@@ -30,3 +30,19 @@
 11) Navigate to the Salesforce Setup > Security > Remote Site Settings 
 - Whitelist your Aprimo order download url EX: https://[your environment].dam.aprimo.com 
 - Whitelist your Aprimo access token url EX: https://[your environment].aprimo.com 
+
+## Configuration Options
+
+### How to use different Salesforce Objects
+Navigate to the aprimocollections.js file. You define which Salesforce object to monitor in the @wire decorated function. 
+
+![wireFunction](https://user-images.githubusercontent.com/51798256/179279743-2f9b01ec-7656-4f16-9038-c34e6a8450f1.png) 
+
+When a record page is changed in Salesforce the “wiredFunc” will receive an object containing data on the fields defined in the fields attribute. In the above screenshot that is the Opportunity’s StageName field and an Opportunity custom field called Aprimo_Collections_Custom_Field__c. This fields array can contain either a single or multiple fields, including custom fields. If the connector needs to be configured with the Account object’s Industry field, you would set the fields array to [‘Account.Industry’] and the same thing for other Salesforce objects.
+
+The getCollectionId() function in AprimoCollectionsConnector.cls is also relevant in this configuration. 
+
+![image](https://user-images.githubusercontent.com/51798256/179281129-ac188434-2d4c-4f2b-a59b-4660744954ae.png)
+
+The wired function will call this function to query Salesforce to get the data of the relevant metadata fields. If this need to be changed to support the Account object it may look like the screenshot below. 
+![image](https://user-images.githubusercontent.com/51798256/179281222-6da3bc55-b40c-4a16-ba74-33442091262a.png)
